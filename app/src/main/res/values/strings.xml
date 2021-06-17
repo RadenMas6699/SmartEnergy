@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Smart Energy</string>
+    <string name="tegangan">Tegangan</string>
+    <string name="arus">Arus</string>
+    <string name="daya">Daya</string>
+    <string name="cosphi">CoshPhi</string>
+    <string name="energy">Energi</string>
+    <string name="light_control">Light Control</string>
+    <string name="power_supply">Power Supply</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="estimasi_biaya">Estimasi Biaya</string>
+    <string name="golongan_tarif">Golongan Tarif</string>
+    <string name="frekuensi">Frekuensi</string>
+
+    <string-array name="timeSortir">
+        <item>30 Menit</item>
+        <item>1 Jam</item>
+        <item>3 Jam</item>
+        <item>1 Hari</item>
+        <item>1 Minggu</item>
+        <item>1 Bulan</item>
+    </string-array>
+</resources>
