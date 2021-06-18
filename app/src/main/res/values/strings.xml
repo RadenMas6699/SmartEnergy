@@ -12,6 +12,7 @@
     <string name="estimasi_biaya">Estimasi Biaya</string>
     <string name="golongan_tarif">Golongan Tarif</string>
     <string name="frekuensi">Frekuensi</string>
+    <string name="reset">Reset</string>
 
     <string-array name="timeSortir">
         <item>30 Menit</item>

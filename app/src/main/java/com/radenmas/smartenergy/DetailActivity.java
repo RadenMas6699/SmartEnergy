@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.radenmas.smartenergy.databinding.ActivityDetailBinding;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -37,34 +36,34 @@ import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private ActivityDetailBinding binding;
+    private TextView tvType, tvDate, tvClock, tvValue;
+    private LineChart chart;
 
-    LineChart chart;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
 
-    FirebaseDatabase database;
-    DatabaseReference reference;
+    private LineDataSet lineDataSet = new LineDataSet(null, null);
+    private ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
+    private LineData lineData;
 
-    LineDataSet lineDataSet = new LineDataSet(null, null);
-    ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
-    LineData lineData;
-
-    Calendar calendar;
-    SimpleDateFormat dateFormat, clockFormat;
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat, clockFormat;
 
     private String type, reff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDetailBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(R.layout.activity_detail);
+
+        initView();
 
         //getData from Intent
         type = getIntent().getStringExtra("type");
         reff = getIntent().getStringExtra("reff");
+
         //setType
-        binding.tvType.setText(type);
+        tvType.setText(type);
 
         //setDatabase
         database = FirebaseDatabase.getInstance();
@@ -74,6 +73,14 @@ public class DetailActivity extends AppCompatActivity {
 
         setDigital();
 
+    }
+
+    private void initView() {
+        tvType = findViewById(R.id.tvType);
+        tvDate = findViewById(R.id.tvDate);
+        tvClock = findViewById(R.id.tvClock);
+        tvValue = findViewById(R.id.tvValue);
+        chart = findViewById(R.id.chart);
     }
 
     private void setDigital() {
@@ -97,27 +104,27 @@ public class DetailActivity extends AppCompatActivity {
                     String date = DateFormat.format("dd MMM yyyy", cal).toString();
                     String clock = DateFormat.format("HH:mm zz", cal).toString();
 
-                    binding.tvDate.setText(date);
-                    binding.tvClock.setText(clock);
+                    tvDate.setText(date);
+                    tvClock.setText(clock);
 
                     switch (type) {
                         case "Tegangan":
-                            binding.tvValue.setText(df.format(dataSensor) + "   V");
+                            tvValue.setText(df.format(dataSensor) + "   V");
                             break;
                         case "Arus":
-                            binding.tvValue.setText(df.format(dataSensor) + "   A");
+                            tvValue.setText(df.format(dataSensor) + "   A");
                             break;
                         case "Daya":
-                            binding.tvValue.setText(df.format(dataSensor) + "   W");
+                            tvValue.setText(df.format(dataSensor) + "   W");
                             break;
                         case "CosPhi":
-                            binding.tvValue.setText(df.format(dataSensor));
+                            tvValue.setText(df.format(dataSensor));
                             break;
                         case "Frekuensi":
-                            binding.tvValue.setText(df.format(dataSensor) + "   Hz");
+                            tvValue.setText(df.format(dataSensor) + "   Hz");
                             break;
                         case "Energy":
-                            binding.tvValue.setText(df.format(dataSensor) + "   kWh");
+                            tvValue.setText(df.format(dataSensor) + "   kWh");
                             break;
                     }
                 }
@@ -169,8 +176,8 @@ public class DetailActivity extends AppCompatActivity {
                     lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
                     lineDataSet.setCubicIntensity(0.05f);
                 } else {
-                    binding.chart.clear();
-                    binding.chart.invalidate();
+                    chart.clear();
+                    chart.invalidate();
                 }
 
             }
@@ -193,7 +200,7 @@ public class DetailActivity extends AppCompatActivity {
         iLineDataSets.add(lineDataSet);
         lineData = new LineData(iLineDataSets);
 
-        XAxis xAxis = binding.chart.getXAxis();
+        XAxis xAxis = chart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setLabelRotationAngle(0f);//45
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -218,24 +225,24 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        YAxis yAxisL = binding.chart.getAxis(YAxis.AxisDependency.LEFT);
+        YAxis yAxisL = chart.getAxis(YAxis.AxisDependency.LEFT);
         yAxisL.setDrawGridLines(false);
         yAxisL.setDrawLabels(true);
 
         MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
         mv.setChartView(chart);
-        binding.chart.setMarker(mv);
+        chart.setMarker(mv);
 
-        binding.chart.getLegend().setEnabled(false);
-        binding.chart.getDescription().setEnabled(false);
-        binding.chart.getAxisRight().setEnabled(false);
-        binding.chart.getAxisLeft().setEnabled(false);
-        binding.chart.getXAxis().setEnabled(false);
-        binding.chart.notifyDataSetChanged();
-        binding.chart.clear();
-        binding.chart.setData(lineData);
-        binding.chart.invalidate();
-        binding.chart.moveViewTo(lineData.getEntryCount(), 1000L, YAxis.AxisDependency.LEFT);
+        chart.getLegend().setEnabled(false);
+        chart.getDescription().setEnabled(false);
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setEnabled(false);
+        chart.getXAxis().setEnabled(false);
+        chart.notifyDataSetChanged();
+        chart.clear();
+        chart.setData(lineData);
+        chart.invalidate();
+        chart.moveViewTo(lineData.getEntryCount(), 1000L, YAxis.AxisDependency.LEFT);
     }
 
 

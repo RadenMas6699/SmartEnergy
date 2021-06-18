@@ -104,7 +104,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginEnd="16dp"
                     android:gravity="start"
-                    android:text="Rp 123.456"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -684,15 +684,27 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReset"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_below="@+id/linearControl"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginVertical="12dp"
-                android:text="Reset"
+                android:layout_marginTop="16dp"
+                android:text="@string/reset"
                 android:textAllCaps="false"
                 app:cornerRadius="8dp" />
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/btnReset"
+                android:layout_alignBottom="@id/btnReset"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/redPink"
+                android:padding="8dp" />
         </RelativeLayout>
     </ScrollView>
 
