@@ -9,11 +9,11 @@
     tools:ignore="Overdraw">
 
     <TextView
-        android:id="@+id/tvSuhu"
+        android:id="@+id/tvValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="12sp" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="12sp" />
 
 

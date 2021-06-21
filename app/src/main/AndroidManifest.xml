@@ -12,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartEnergy">
-        <activity android:name=".InfoAppActivity"></activity>
+        <activity
+            android:name=".InfoAppActivity"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".DetailActivity"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:theme="@style/NoActionBar" />
@@ -24,7 +26,7 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/Theme.SmartEnergy" />
         <activity
             android:name=".Splash"
             android:theme="@style/Splash">

@@ -9,70 +9,13 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="240dp"
         android:background="@color/blueLight" />
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="12dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/img_user"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:src="@drawable/ic_app" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="12dp"
-                android:layout_toEndOf="@id/img_user"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/menu_info"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignTop="@id/img_user"
-                android:layout_alignBottom="@id/img_user"
-                android:layout_marginEnd="16dp"
-                android:layout_toStartOf="@id/menu_logout"
-                android:foreground="?attr/selectableItemBackground"
-                android:onClick="InfoApp"
-                android:padding="4dp"
-                android:src="@drawable/ic_info"
-                app:tint="@color/white" />
-
-            <ImageView
-                android:id="@+id/menu_logout"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignTop="@id/img_user"
-                android:layout_alignBottom="@id/img_user"
-                android:layout_alignParentEnd="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:onClick="Exit"
-                android:padding="4dp"
-                android:src="@drawable/ic_logout"
-                app:tint="@color/white" />
-        </RelativeLayout>
-    </com.google.android.material.appbar.MaterialToolbar>
-
     <ScrollView
+        android:paddingTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -106,7 +49,7 @@
                     android:gravity="start"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -241,7 +184,7 @@
                                 app:cpb_background_progressbar_color="@color/gray"
                                 app:cpb_background_progressbar_width="5dp"
                                 app:cpb_progress_direction="to_right"
-                                app:cpb_progress_max="50"
+                                app:cpb_progress_max="20"
                                 app:cpb_progressbar_color="@color/redPink"
                                 app:cpb_progressbar_width="5dp"
                                 app:cpb_round_border="true"
@@ -573,13 +516,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardMenu"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="200dp"
-                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:outlineSpotShadowColor="@color/blueLight2"
@@ -632,7 +575,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="200dp"
-                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:outlineSpotShadowColor="@color/blueLight2"
@@ -689,7 +632,8 @@
                 android:layout_height="56dp"
                 android:layout_below="@+id/linearControl"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/reset"
                 android:textAllCaps="false"
                 app:cornerRadius="8dp" />
@@ -707,6 +651,5 @@
                 android:padding="8dp" />
         </RelativeLayout>
     </ScrollView>
-
 
 </RelativeLayout>

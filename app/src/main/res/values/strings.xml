@@ -13,13 +13,10 @@
     <string name="golongan_tarif">Golongan Tarif</string>
     <string name="frekuensi">Frekuensi</string>
     <string name="reset">Reset</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="jam">Jam</string>
+    <string name="info_app">Info Aplikasi</string>
+    <string name="close">Keluar</string>
+    <string name="log_out">Log Out</string>
 
-    <string-array name="timeSortir">
-        <item>30 Menit</item>
-        <item>1 Jam</item>
-        <item>3 Jam</item>
-        <item>1 Hari</item>
-        <item>1 Minggu</item>
-        <item>1 Bulan</item>
-    </string-array>
 </resources>

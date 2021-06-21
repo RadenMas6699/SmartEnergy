@@ -2,6 +2,7 @@ package com.radenmas.smartenergy;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
@@ -12,23 +13,21 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 @SuppressLint("ViewConstructor")
 public class MyMarkerView extends MarkerView {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm zz", Locale.getDefault());
-    private final TextView tvSuhu, tvTime;
+    private final TextView tvValue, tvTime;
 
     public MyMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
 
-        tvSuhu = findViewById(R.id.tvSuhu);
+        tvValue = findViewById(R.id.tvValue);
         tvTime = findViewById(R.id.tvTime);
     }
 
-    // runs every time the MarkerView is redrawn, can be used to update the
-    // content (user-interface)
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
 
@@ -36,14 +35,19 @@ public class MyMarkerView extends MarkerView {
 
             CandleEntry ce = (CandleEntry) e;
 
-            tvSuhu.setText(Utils.formatNumber(ce.getHigh(), 0, true));
+            tvValue.setText(Utils.formatNumber(ce.getHigh(), 0, true));
         } else {
             float time = e.getX();
-            String jam = sdf.format(time);
-            tvTime.setText(jam);
-            tvSuhu.setText(Utils.formatNumber(e.getY(), 0, true));
-        }
+            long longtime = (long) time;
 
+            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+            cal.setTimeInMillis(longtime * 1000);
+
+            String clock = DateFormat.format("HH:mm zz", cal).toString();
+
+            tvTime.setText(clock);
+            tvValue.setText(Utils.formatNumber(e.getY(), 0, true));
+        }
         super.refreshContent(e, highlight);
     }
 

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_info"
-        android:icon="@drawable/ic_info"
-        android:title="Info"
-        app:showAsAction="always" />
+        android:title="@string/info_app" />
+    <item
+        android:id="@+id/menu_close"
+        android:title="@string/close" />
     <item
         android:id="@+id/menu_logout"
-        android:icon="@drawable/ic_logout"
-        android:title="Keluar"
-        app:showAsAction="always" />
+        android:title="@string/log_out" />
 </menu>

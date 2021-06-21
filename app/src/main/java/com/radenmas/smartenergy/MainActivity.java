@@ -4,8 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,11 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference reset1 = FirebaseDatabase.getInstance().getReference("reset1");
 
     private String[] Item = {"R-1/TR", "R-1M/TR", "R-1/TR", "R-1/TR", "R-2/TR", "R-3/TR"};
-    private int gol;
+    private float gol;
     private int selectSpin = 0;
     private double total = 0;
     private String dataEnergi;
@@ -64,6 +71,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);// set drawable icon
+        ActionBar bar = getSupportActionBar();
+//        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setLogo(R.mipmap.ic_launcher);
+        bar.setIcon(R.mipmap.ic_launcher);
+
+        TextView textview = new TextView(MainActivity.this);
+        textview.setText("Smart");
+        textview.setTextColor(Color.WHITE);
+        textview.setTextSize(18);
+        bar.setCustomView(textview);
+
 
         initView();
 
@@ -203,18 +223,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    public void InfoApp(View view) {
-        startActivity(new Intent(MainActivity.this, InfoAppActivity.class));
-    }
-
-    public void Exit(View view) {
-        new AlertDialog.Builder(MainActivity.this)
-                .setMessage("Ingin keluar dari aplikasi?")
-                .setPositiveButton("Tidak", (dialogInterface, i) -> dialogInterface.dismiss())
-                .setNegativeButton("Ya", (dialogInterface, i) -> finish())
-                .show();
-    }
-
     public void Tegangan(View view) {
         pindahActivity("Tegangan", "volt");
     }
@@ -322,26 +330,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (selectSpin) {
             case 0:
-                gol = 100;
+                gol = 274;
                 break;
             case 1:
-                gol = 200;
+                gol = 1352;
                 break;
             case 2:
-                gol = 300;
+                gol = 1444;
                 break;
             case 3:
-                gol = 400;
+                gol = 1444;
                 break;
             case 4:
-                gol = 500;
+                gol = 1444;
                 break;
             case 5:
-                gol = 600;
+                gol = 1444;
                 break;
         }
 
         total = floatEnergi * gol;
         totalPrice.setText(formatRupiah.format(total));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_info:
+                startActivity(new Intent(MainActivity.this, InfoAppActivity.class));
+                break;
+            case R.id.menu_close:
+                onBackPressed();
+                break;
+            case R.id.menu_logout:
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Ingin Log out dari akun?")
+                        .setPositiveButton("Tidak", (dialogInterface, i) -> dialogInterface.dismiss())
+                        .setNegativeButton("Ya", (dialogInterface, i) -> {
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
+                        })
+                        .show();
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage("Ingin keluar dari aplikasi?")
+                .setPositiveButton("Tidak", (dialogInterface, i) -> dialogInterface.dismiss())
+                .setNegativeButton("Ya", (dialogInterface, i) -> finish())
+                .show();
     }
 }
