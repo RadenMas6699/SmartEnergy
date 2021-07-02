@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,7 +25,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,11 +71,8 @@ public class DetailActivity extends AppCompatActivity {
         initView();
 
         //getData from Intent
-//        type = getIntent().getStringExtra("type");
-//        reff = getIntent().getStringExtra("reff");
-
-        type = "Arus";
-        reff = "arus";
+        type = getIntent().getStringExtra("type");
+        reff = getIntent().getStringExtra("reff");
 
         //setType
         tvType.setText(type);
@@ -81,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Smart Energy");
 
-        retrieveData();
+        retrieveData(450);
 
         setDigital();
 
@@ -105,21 +105,46 @@ public class DetailActivity extends AppCompatActivity {
             }
             isChecking = true;
         });
+
+//        chart.setOnChartValueSelectedListener(this);
+        chart.setDrawGridBackground(false);
+        chart.getDescription().setEnabled(false);
+        chart.setNoDataText("No chart data available. Use the menu to add entries and data sets!");
+
+        chart.getXAxis().setDrawLabels(false);
+        chart.getXAxis().setDrawGridLines(false);
+
+        chart.invalidate();
     }
 
     public void showType() {
+
+//        450
+//        900
+//        2700
+//        21600
+//        151200
+//        648000
+
+
         if (mCheckedId == R.id.halfHour) {
-            chart.moveViewTo(lineData.getEntryCount() - 450, 50f, YAxis.AxisDependency.LEFT);
+            retrieveData(450);
+//            chart.moveViewTo(lineData.getEntryCount() - 45, 50f, YAxis.AxisDependency.RIGHT);
         } else if (mCheckedId == R.id.oneHour) {
-            chart.moveViewTo(lineData.getEntryCount() - 900, 50f, YAxis.AxisDependency.LEFT);
+            retrieveData(900);
+//            chart.moveViewTo(lineData.getEntryCount() - 90, 50f, YAxis.AxisDependency.RIGHT);
         } else if (mCheckedId == R.id.threeHours) {
-            chart.moveViewTo(lineData.getEntryCount() - 2700, 50f, YAxis.AxisDependency.LEFT);
+            retrieveData(2700);
+//            chart.moveViewTo(lineData.getEntryCount() - 270, 50f, YAxis.AxisDependency.RIGHT);
         } else if (mCheckedId == R.id.oneDay) {
-            chart.moveViewTo(lineData.getEntryCount() - 21600, 50f, YAxis.AxisDependency.LEFT);
+            retrieveData(21600);
+//            chart.moveViewTo(lineData.getEntryCount() - 2160, 50f, YAxis.AxisDependency.RIGHT);
         } else if (mCheckedId == R.id.oneWeek) {
-            chart.moveViewTo(lineData.getEntryCount() - 151200, 50f, YAxis.AxisDependency.LEFT);
+            retrieveData(151200);
+//            chart.moveViewTo(lineData.getEntryCount() - 15120, 50f, YAxis.AxisDependency.RIGHT);
         } else if (mCheckedId == R.id.oneMonth) {
-            chart.moveViewTo(lineData.getEntryCount() - 648000, 50f, YAxis.AxisDependency.LEFT);
+            retrieveData(648000);
+//            chart.moveViewTo(lineData.getEntryCount() - 64800, 50f, YAxis.AxisDependency.RIGHT);
         }
     }
 
@@ -132,6 +157,65 @@ public class DetailActivity extends AppCompatActivity {
         rgTimeSortir = findViewById(R.id.rgTimeSortir);
         rgTimeSortir2 = findViewById(R.id.rgTimeSortir2);
     }
+
+//    private void addEntry() {
+//
+//        LineData data = chart.getData();
+//
+//        if (data == null) {
+//            data = new LineData();
+//            chart.setData(data);
+//        }
+//
+//        ILineDataSet set = data.getDataSetByIndex(0);
+//        // set.addEntry(...); // can be called as well
+//
+//        if (set == null) {
+//            set = createSet();
+//            data.addDataSet(set);
+//        }
+//
+//        // choose a random dataSet
+//        int randomDataSetIndex = (int) (Math.random() * data.getDataSetCount());
+//        ILineDataSet randomSet = data.getDataSetByIndex(randomDataSetIndex);
+//        float value = (float) (Math.random() * 50) + 50f * (randomDataSetIndex + 1);
+//
+//        data.addEntry(new Entry(randomSet.getEntryCount(), value), randomDataSetIndex);
+//        data.notifyDataChanged();
+//
+//        // let the chart know it's data has changed
+//        chart.notifyDataSetChanged();
+//
+//        chart.setVisibleXRangeMaximum(10);
+//        //chart.setVisibleYRangeMaximum(15, AxisDependency.LEFT);
+//
+//        // this automatically refreshes the chart (calls invalidate())
+//        chart.moveViewTo(data.getEntryCount() - 11, 50f, YAxis.AxisDependency.LEFT);
+//
+//    }
+//
+//    private LineDataSet createSet() {
+//
+//        LineDataSet set = new LineDataSet(null, "DataSet 1");
+//        set.setLineWidth(2.5f);
+//        set.setCircleRadius(4.5f);
+//        set.setColor(Color.rgb(240, 99, 99));
+//        set.setCircleColor(Color.rgb(240, 99, 99));
+//        set.setHighLightColor(Color.rgb(190, 190, 190));
+//        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+//        set.setValueTextSize(10f);
+//
+//        return set;
+//    }
+//
+//    @Override
+//    public void onValueSelected(Entry e, Highlight h) {
+//        Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onNothingSelected() {
+//    }
 
     private void setDigital() {
         Query query = reference.orderByKey().limitToLast(1);
@@ -146,8 +230,6 @@ public class DetailActivity extends AppCompatActivity {
 
                     long time = dataPoints.getTime();
 
-                    float dataSensor = (float) dataPoints.getArus();
-
                     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                     cal.setTimeInMillis(time * 1000);
 
@@ -159,22 +241,28 @@ public class DetailActivity extends AppCompatActivity {
 
                     switch (type) {
                         case "Tegangan":
-                            tvValue.setText(df.format(dataSensor) + "   V");
+                            float dataVolt = (float) dataPoints.getVolt();
+                            tvValue.setText(df.format(dataVolt) + "   V");
                             break;
                         case "Arus":
-                            tvValue.setText(df.format(dataSensor) + "   A");
+                            float dataArus = (float) dataPoints.getArus();
+                            tvValue.setText(df.format(dataArus) + "   A");
                             break;
                         case "Daya":
-                            tvValue.setText(df.format(dataSensor) + "   W");
+                            float dataDaya = (float) dataPoints.getPower();
+                            tvValue.setText(df.format(dataDaya) + "   W");
                             break;
                         case "CosPhi":
-                            tvValue.setText(df.format(dataSensor));
+                            float dataCos = (float) dataPoints.getCos_phi();
+                            tvValue.setText(df.format(dataCos));
                             break;
                         case "Frekuensi":
-                            tvValue.setText(df.format(dataSensor) + "   Hz");
+                            float dataFreq = (float) dataPoints.getFrequensi();
+                            tvValue.setText(df.format(dataFreq) + "   Hz");
                             break;
                         case "Energy":
-                            tvValue.setText(df.format(dataSensor) + "   kWh");
+                            float dataEnergy = (float) dataPoints.getEnergy();
+                            tvValue.setText(df.format(dataEnergy) + "   kWh");
                             break;
                     }
                 }
@@ -187,8 +275,8 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void retrieveData() {
-        Query query = reference.orderByKey().limitToLast(200);
+    private void retrieveData(int limit) {
+        Query query = reference.orderByKey().limitToLast(limit);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -218,9 +306,20 @@ public class DetailActivity extends AppCompatActivity {
                                 data.add(new Entry(dataPoints.getTime(), dataPoints.getEnergy()));
                                 break;
                         }
-
                     }
                     showChart(data);
+                    lineDataSet.setDrawValues(false);
+                    lineDataSet.setDrawCircles(false);
+                    lineDataSet.setDrawFilled(true);
+                    if (Utils.getSDKInt() >= 18) {
+                        Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.fade_blue_light);
+                        lineDataSet.setFillDrawable(drawable);
+                    } else {
+                        lineDataSet.setFillAlpha(5);
+                    }
+                    lineDataSet.setLineWidth(1.5f);
+//                    lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//                    lineDataSet.setCubicIntensity(0.05f);
                 } else {
                     chart.clear();
                     chart.invalidate();
@@ -237,30 +336,34 @@ public class DetailActivity extends AppCompatActivity {
 
     private void showChart(ArrayList<Entry> data) {
         lineDataSet.setValues(data);
-        lineDataSet.setDrawFilled(true);
-        if (Utils.getSDKInt() >= 18) {
-            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_blue_light);
-            lineDataSet.setFillDrawable(drawable);
-        } else {
-            lineDataSet.setFillAlpha(5);
-        }
-        lineDataSet.setLineWidth(1.5f);
-        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        lineDataSet.setCubicIntensity(0.05f);
-        lineDataSet.setDrawValues(false);
-        iLineDataSets.clear();
+
+//        iLineDataSets.clear();
         iLineDataSets.add(lineDataSet);
+
         lineData = new LineData(iLineDataSets);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setLabelRotationAngle(0f); //45
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setDrawLabels(false);
-        xAxis.setLabelCount(3, true);
+        xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
+        xAxis.setCenterAxisLabels(true);
+//        xAxis.setGranularity(1f);
+        xAxis.setDrawLabels(true);
+//        xAxis.setLabelCount(3, true);
         xAxis.setTextColor(getResources().getColor(R.color.black));
         xAxis.setValueFormatter(new ValueFormatter() {
+
+
+//            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.ENGLISH);
+//
+//            @Override
+//            public String getFormattedValue(float value) {
+//
+//                long millis = TimeUnit.HOURS.toMillis((long) value);
+//                return mFormat.format(new Date(millis));
+//            }
+
+
             @Override
             public String getFormattedValue(float value) {
                 long longtime = (long) value;
@@ -268,7 +371,7 @@ public class DetailActivity extends AppCompatActivity {
                 Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                 cal.setTimeInMillis(longtime * 1000);
 
-                String s = DateFormat.format("HH:mm zz", cal).toString();
+                String s = DateFormat.format("HH:mm:ss zz", cal).toString();
 
                 return s;
             }
@@ -282,17 +385,20 @@ public class DetailActivity extends AppCompatActivity {
         mv.setChartView(chart);
         chart.setMarker(mv);
 
+        chart.setVisibleXRangeMaximum(10);
+
         chart.getLegend().setEnabled(false);
         chart.getDescription().setEnabled(false);
         chart.getAxisRight().setEnabled(false);
         chart.getAxisLeft().setEnabled(false);
         chart.getXAxis().setEnabled(false);
-        chart.notifyDataSetChanged();
-        chart.clear();
+
         chart.setData(lineData);
-        chart.notifyDataSetChanged();
-        chart.animateXY(2000, 2000);
+
+        chart.moveViewTo(lineData.getEntryCount() - 11, 50f, YAxis.AxisDependency.LEFT);
+
         chart.invalidate();
+
     }
 
     public void Back(View view) {

@@ -12,6 +12,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -43,10 +44,11 @@ public class MyMarkerView extends MarkerView {
             Calendar cal = Calendar.getInstance(Locale.ENGLISH);
             cal.setTimeInMillis(longtime * 1000);
 
-            String clock = DateFormat.format("HH:mm zz", cal).toString();
+            String clock = DateFormat.format("HH:mm:ss zz", cal).toString();
 
             tvTime.setText(clock);
-            tvValue.setText(Utils.formatNumber(e.getY(), 0, true));
+
+            tvValue.setText(Utils.formatNumber((e.getY()), 2, true));
         }
         super.refreshContent(e, highlight);
     }

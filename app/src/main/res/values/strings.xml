@@ -3,7 +3,7 @@
     <string name="tegangan">Tegangan</string>
     <string name="arus">Arus</string>
     <string name="daya">Daya</string>
-    <string name="cosphi">CoshPhi</string>
+    <string name="cosphi">Cos φ</string>
     <string name="energy">Energi</string>
     <string name="light_control">Light Control</string>
     <string name="power_supply">Power Supply</string>
@@ -18,5 +18,9 @@
     <string name="info_app">Info Aplikasi</string>
     <string name="close">Keluar</string>
     <string name="log_out">Log Out</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="power_factor">Power Factor</string>
 
 </resources>

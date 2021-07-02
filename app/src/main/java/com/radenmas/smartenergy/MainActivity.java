@@ -72,11 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);// set drawable icon
         ActionBar bar = getSupportActionBar();
-//        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setLogo(R.mipmap.ic_launcher);
-        bar.setIcon(R.mipmap.ic_launcher);
 
         TextView textview = new TextView(MainActivity.this);
         textview.setText("Smart");
@@ -180,7 +176,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 for (DataSnapshot child : snapshot.getChildren()) {
 
-                    DecimalFormat df = new DecimalFormat("#");
+                    DecimalFormat decimal = new DecimalFormat("#");
+                    DecimalFormat koma = new DecimalFormat("#.##");
 
                     String dataVolt = child.child("volt").getValue().toString();
                     String dataArus = child.child("arus").getValue().toString();
@@ -197,12 +194,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     floatEnergi = Float.parseFloat(dataEnergi);
 
                     //setData to TextView
-                    valueTegangan.setText(df.format(floatVolt));
-                    valueArus.setText(df.format(floatArus));
-                    valueDaya.setText(df.format(floatPower));
-                    valueCoshPhi.setText(df.format(floatCoshPhi));
-                    valueFrekuensi.setText(df.format(floatFrekuensi));
-                    valueEnergy.setText(df.format(floatEnergi));
+                    valueTegangan.setText(decimal.format(floatVolt));
+                    valueArus.setText(koma.format(floatArus));
+                    valueDaya.setText(decimal.format(floatPower));
+                    valueCoshPhi.setText(koma.format(floatCoshPhi));
+                    valueFrekuensi.setText(decimal.format(floatFrekuensi));
+                    valueEnergy.setText(koma.format(floatEnergi));
 
                     //setData to Circle
                     circleTegangan.setProgress(floatVolt);
@@ -321,6 +318,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     btnReset.setVisibility(View.VISIBLE);
                     reset1.setValue("0");
                 }, 5000);
+
+//                startActivity(new Intent(MainActivity.this, Graph.class));
         }
     }
 

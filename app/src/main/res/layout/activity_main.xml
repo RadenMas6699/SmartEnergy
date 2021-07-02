@@ -13,9 +13,9 @@
         android:background="@color/blueLight" />
 
     <ScrollView
-        android:paddingTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="16dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -326,7 +326,7 @@
                                 app:cpb_background_progressbar_width="5dp"
                                 app:cpb_progress_direction="to_right"
                                 app:cpb_progress_max="5"
-                                app:cpb_progressbar_color="@color/purple_700"
+                                app:cpb_progressbar_color="@color/redPink"
                                 app:cpb_progressbar_width="5dp"
                                 app:cpb_round_border="true"
                                 app:cpb_start_angle="0" />
@@ -340,7 +340,7 @@
                                 android:gravity="center"
                                 android:lines="1"
                                 android:paddingHorizontal="6dp"
-                                android:text="@string/cosphi"
+                                android:text="@string/power_factor"
                                 android:textColor="@color/black"
                                 android:textSize="15sp" />
 
@@ -364,6 +364,18 @@
                                     android:text="0"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="14dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:lines="1"
+                                    android:paddingHorizontal="2dp"
+                                    android:text="@string/cosphi"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp"
+                                    tools:ignore="SmallSp" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -455,7 +467,7 @@
                                 app:cpb_background_progressbar_width="5dp"
                                 app:cpb_progress_direction="to_right"
                                 app:cpb_progress_max="10000"
-                                app:cpb_progressbar_color="@color/purple_700"
+                                app:cpb_progressbar_color="@color/toscaLight"
                                 app:cpb_progressbar_width="5dp"
                                 app:cpb_round_border="true"
                                 app:cpb_start_angle="0" />
