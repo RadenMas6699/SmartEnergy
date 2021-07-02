@@ -43,6 +43,9 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    
+    
+    //// Kak Mudarris
     private CircularProgressBar circleTegangan, circleArus, circleDaya, circleCoshPhi, circleFrekuensi, circleEnergy;
     private TextView valueTegangan, valueArus, valueDaya, valueCoshPhi, valueFrekuensi, valueEnergy, totalPrice;
     private Spinner spinnerGol;
