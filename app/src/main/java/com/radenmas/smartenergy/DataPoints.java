@@ -9,16 +9,16 @@ public class DataPoints {
 
     long time;
     int volt;
-    int arus;
+    float arus;
     int power;
-    int cos_phi;
+    float cos_phi;
     int frequensi;
-    int energy;
+    float energy;
 
     public DataPoints() {
     }
 
-    public DataPoints(long time, int volt, int arus, int power, int cos_phi, int frequensi, int energy) {
+    public DataPoints(long time, int volt, float arus, int power, float cos_phi, int frequensi, float energy) {
         this.time = time;
         this.volt = volt;
         this.arus = arus;
@@ -36,7 +36,7 @@ public class DataPoints {
         return volt;
     }
 
-    public int getArus() {
+    public float getArus() {
         return arus;
     }
 
@@ -44,7 +44,7 @@ public class DataPoints {
         return power;
     }
 
-    public int getCos_phi() {
+    public float getCos_phi() {
         return cos_phi;
     }
 
@@ -52,7 +52,7 @@ public class DataPoints {
         return frequensi;
     }
 
-    public int getEnergy() {
+    public float getEnergy() {
         return energy;
     }
 }

@@ -221,33 +221,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void Tegangan(View view) {
-        pindahActivity("Tegangan", "volt");
+        pindahActivity("Tegangan");
     }
 
     public void Arus(View view) {
-        pindahActivity("Arus", "arus");
+        pindahActivity("Arus");
     }
 
     public void Daya(View view) {
-        pindahActivity("Daya", "power");
+        pindahActivity("Daya");
     }
 
     public void CoshPhi(View view) {
-        pindahActivity("CosPhi", "cos_phi");
+        pindahActivity("CosPhi");
     }
 
     public void Frekuensi(View view) {
-        pindahActivity("Frekuensi", "frequensi");
+        pindahActivity("Frekuensi");
     }
 
     public void Energy(View view) {
-        pindahActivity("Energy", "energy");
+        pindahActivity("Energy");
     }
 
-    private void pindahActivity(String type, String reff) {
-        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+    private void pindahActivity(String type) {
+        Intent intent = new Intent(MainActivity.this, DetailServer.class);
         intent.putExtra("type", type);
-        intent.putExtra("reff", reff);
         startActivity(intent);
     }
 
@@ -312,14 +311,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnReset:
-                btnReset.setVisibility(View.INVISIBLE);
-                reset1.setValue("1");
-                new Handler().postDelayed(() -> {
-                    btnReset.setVisibility(View.VISIBLE);
-                    reset1.setValue("0");
-                }, 5000);
+//                btnReset.setVisibility(View.INVISIBLE);
+//                reset1.setValue("1");
+//                new Handler().postDelayed(() -> {
+//                    btnReset.setVisibility(View.VISIBLE);
+//                    reset1.setValue("0");
+//                }, 5000);
 
-//                startActivity(new Intent(MainActivity.this, Graph.class));
+                startActivity(new Intent(MainActivity.this, DetailServer.class));
         }
     }
 

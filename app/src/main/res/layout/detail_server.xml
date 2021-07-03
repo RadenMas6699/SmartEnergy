@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_white_blue"
-    tools:context=".DetailActivity">
+    android:orientation="vertical"
+    tools:context=".DetailServer"
+    tools:ignore="NestedWeights">
 
     <ImageView
         android:id="@+id/img_back"
@@ -107,112 +108,124 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
     </LinearLayout>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/rgTimeSortir"
+        android:layout_above="@+id/rgTimeSortir"
         android:layout_below="@id/linearTitle"
         android:layout_marginTop="8dp"
         android:minHeight="360dp" />
 
-    <RadioGroup
+    <LinearLayout
         android:id="@+id/rgTimeSortir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/rgTimeSortir2"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/halfHour"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_selector"
-            android:button="@android:color/transparent"
-            android:checked="true"
-            android:gravity="center"
-            android:text="30 Menit"
-            android:textColor="@drawable/text_color"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/oneHour"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_selector"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="1 Jam"
-            android:textColor="@drawable/text_color"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/threeHours"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_selector"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="3 Jam"
-            android:textColor="@drawable/text_color"
-            android:textSize="14sp" />
-    </RadioGroup>
-
-    <RadioGroup
-        android:id="@+id/rgTimeSortir2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/oneDay"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_selector"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="1 Hari"
-            android:textColor="@drawable/text_color"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/oneWeek"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_selector"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="1 Minggu"
-            android:textColor="@drawable/text_color"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/halfHour"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="30 Menit" />
 
-        <RadioButton
-            android:id="@+id/oneMonth"
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/oneHour"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1 Jam" />
+
+            <TextView
+                android:id="@+id/threeHours"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="3 Jam" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_selector"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="1 Bulan"
-            android:textColor="@drawable/text_color"
-            android:textSize="14sp" />
-    </RadioGroup>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/oneDay"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1 Hari" />
+
+            <TextView
+                android:id="@+id/oneWeek"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1 Minggu" />
+
+            <TextView
+                android:id="@+id/oneMonth"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1 Bulan" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginLeft="30dp"-->
+    <!--        android:layout_marginRight="30dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/tvSortLive"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="30 Menit" />-->
+
+    <!--        <Space-->
+    <!--            android:layout_width="20dp"-->
+    <!--            android:layout_height="wrap_content" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/tvSortClock"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="1 Jam" />-->
+
+    <!--        <Space-->
+    <!--            android:layout_width="20dp"-->
+    <!--            android:layout_height="wrap_content" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/tvSortDay"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="3 Jam" />-->
+    <!--    </LinearLayout>-->
 
 </RelativeLayout>

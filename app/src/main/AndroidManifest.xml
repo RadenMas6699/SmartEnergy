@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartEnergy">
         <activity
-            android:name=".InfoAppActivity"
+            android:name=".DetailServer"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".InfoAppActivity"
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".LoginActivity"
