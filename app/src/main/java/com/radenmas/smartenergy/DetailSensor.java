@@ -1,7 +1,6 @@
 package com.radenmas.smartenergy;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -18,7 +17,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
@@ -29,14 +27,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
-public class DetailServer extends AppCompatActivity {
+public class DetailSensor extends AppCompatActivity {
 
     private TextView tvType, tvDate, tvClock, tvValue, halfHour, oneHour, threeHours, oneDay, oneWeek, oneMonth;
 
@@ -68,7 +63,7 @@ public class DetailServer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_server);
+        setContentView(R.layout.detail_sensor);
 
         init();
         onClick();
@@ -315,8 +310,33 @@ public class DetailServer extends AppCompatActivity {
         YAxis yAxisL = chart.getAxis(YAxis.AxisDependency.LEFT);
         yAxisL.setDrawGridLines(false);
         yAxisL.setDrawLabels(false);
-//        yAxisL.setAxisMinimum(210);
-//        yAxisL.setAxisMaximum(240);
+
+//        switch (type) {
+//            case "Tegangan":
+//                yAxisL.setAxisMinimum(110);
+//                yAxisL.setAxisMaximum(330);
+//                break;
+//            case "Arus":
+//                yAxisL.setAxisMinimum(0);
+//                yAxisL.setAxisMaximum(20);
+//                break;
+//            case "Daya":
+//                yAxisL.setAxisMinimum(0);
+//                yAxisL.setAxisMaximum(1000);
+//                break;
+//            case "CosPhi":
+//                yAxisL.setAxisMinimum(0);
+//                yAxisL.setAxisMaximum(5);
+//                break;
+//            case "Frekuensi":
+//                yAxisL.setAxisMinimum(40);
+//                yAxisL.setAxisMaximum(70);
+//                break;
+//            case "Energy":
+//                yAxisL.setAxisMinimum(0);
+//                yAxisL.setAxisMaximum(100);
+//                break;
+//        }
 
         MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
         mv.setChartView(chart);

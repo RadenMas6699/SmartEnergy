@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
             finish();
         }
     }
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onSuccess(AuthResult authResult) {
         progressDialog.dismiss();
-        startActivity(new Intent(LoginActivity.this, Cadangan.class));
+        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
         finish();
     }
 

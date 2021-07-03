@@ -1,12 +1,15 @@
 package com.radenmas.smartenergy;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -15,17 +18,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,13 +37,13 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
+
     private CircularProgressBar circleTegangan, circleArus, circleDaya, circleCoshPhi, circleFrekuensi, circleEnergy;
     private TextView valueTegangan, valueArus, valueDaya, valueCoshPhi, valueFrekuensi, valueEnergy, totalPrice;
     private Spinner spinnerGol;
     private ImageView imgStateLight, imgSwitchLamp, imgStatePower, imgSwitchPower;
     private MaterialButton btnReset;
-    private ProgressBar progressBar;
 
     private DatabaseReference dataSensor;
 
@@ -70,11 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dashboard);
 
         ActionBar bar = getSupportActionBar();
 
-        TextView textview = new TextView(MainActivity.this);
+        TextView textview = new TextView(DashboardActivity.this);
         textview.setText("Smart");
         textview.setTextColor(Color.WHITE);
         textview.setTextSize(18);
@@ -165,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgSwitchPower = findViewById(R.id.imgSwitchPower);
 
         btnReset = findViewById(R.id.btnReset);
-        progressBar = findViewById(R.id.progressBar);
     }
 
     private void setDataCircle() {
@@ -245,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void pindahActivity(String type) {
-        Intent intent = new Intent(MainActivity.this, DetailServer.class);
+        Intent intent = new Intent(DashboardActivity.this, DetailSensor.class);
         intent.putExtra("type", type);
         startActivity(intent);
     }
@@ -311,14 +305,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnReset:
-//                btnReset.setVisibility(View.INVISIBLE);
-//                reset1.setValue("1");
-//                new Handler().postDelayed(() -> {
-//                    btnReset.setVisibility(View.VISIBLE);
-//                    reset1.setValue("0");
-//                }, 5000);
-
-                startActivity(new Intent(MainActivity.this, DetailServer.class));
+                btnReset.setVisibility(View.INVISIBLE);
+                reset1.setValue("1");
+                new Handler().postDelayed(() -> {
+                    btnReset.setVisibility(View.VISIBLE);
+                    reset1.setValue("0");
+                }, 5000);
         }
     }
 
@@ -361,18 +353,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_info:
-                startActivity(new Intent(MainActivity.this, InfoAppActivity.class));
+                startActivity(new Intent(DashboardActivity.this, InfoAppActivity.class));
                 break;
             case R.id.menu_close:
                 onBackPressed();
                 break;
             case R.id.menu_logout:
-                new AlertDialog.Builder(MainActivity.this)
+                new AlertDialog.Builder(DashboardActivity.this)
                         .setMessage("Ingin Log out dari akun?")
                         .setPositiveButton("Tidak", (dialogInterface, i) -> dialogInterface.dismiss())
                         .setNegativeButton("Ya", (dialogInterface, i) -> {
                             FirebaseAuth.getInstance().signOut();
-                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
                             finish();
                         })
                         .show();
@@ -384,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(MainActivity.this)
+        new AlertDialog.Builder(DashboardActivity.this)
                 .setMessage("Ingin keluar dari aplikasi?")
                 .setPositiveButton("Tidak", (dialogInterface, i) -> dialogInterface.dismiss())
                 .setNegativeButton("Ya", (dialogInterface, i) -> finish())

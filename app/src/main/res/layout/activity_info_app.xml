@@ -61,6 +61,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         android:text="by : Lamacca.id"
-        android:textColor="@color/black"
+        android:textColor="@android:color/darker_gray"
         android:textSize="18sp" />
 </RelativeLayout>
