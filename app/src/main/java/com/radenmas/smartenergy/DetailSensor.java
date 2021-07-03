@@ -1,11 +1,13 @@
 package com.radenmas.smartenergy;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
@@ -27,9 +30,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DetailSensor extends AppCompatActivity {
 
@@ -164,35 +170,63 @@ public class DetailSensor extends AppCompatActivity {
 
     private void onClick() {
         halfHour.setOnClickListener(v -> {
+            btnOnClick(halfHour, oneHour, threeHours, oneDay, oneWeek, oneMonth);
             chart.invalidate();
             GraphSuhu(int30menit);
         });
 
         oneHour.setOnClickListener(v -> {
+            btnOnClick(oneHour, halfHour, threeHours, oneDay, oneWeek, oneMonth);
             chart.invalidate();
             GraphSuhu(int1jam);
         });
 
         threeHours.setOnClickListener(v -> {
+            btnOnClick(threeHours, halfHour, oneHour, oneDay, oneWeek, oneMonth);
             chart.invalidate();
             GraphSuhu(int3jam);
         });
 
         oneDay.setOnClickListener(v -> {
+            btnOnClick(oneDay, halfHour, oneHour, threeHours, oneWeek, oneMonth);
             chart.invalidate();
             GraphSuhu(int1hari);
         });
 
         oneWeek.setOnClickListener(v -> {
+            btnOnClick(oneWeek, halfHour, oneHour, threeHours, oneDay, oneMonth);
             chart.invalidate();
             GraphSuhu(int1minggu);
         });
 
         oneMonth.setOnClickListener(v -> {
+            btnOnClick(oneMonth, halfHour, oneHour, threeHours, oneDay, oneWeek);
             chart.invalidate();
             GraphSuhu(int1bulan);
         });
 
+    }
+
+    private void btnOnClick(TextView onClick, TextView notClick1, TextView notClick2, TextView notClick3, TextView notClick4, TextView notClick5) {
+        onClick.setTextColor(getColor(R.color.black));
+        notClick1.setTextColor(Color.GRAY);
+        notClick2.setTextColor(Color.GRAY);
+        notClick3.setTextColor(Color.GRAY);
+        notClick4.setTextColor(Color.GRAY);
+        notClick5.setTextColor(Color.GRAY);
+
+        onClick.setBackgroundResource(R.drawable.btn_selected);
+        notClick1.setBackgroundResource(R.drawable.btn_normal);
+        notClick2.setBackgroundResource(R.drawable.btn_normal);
+        notClick3.setBackgroundResource(R.drawable.btn_normal);
+        notClick4.setBackgroundResource(R.drawable.btn_normal);
+        notClick5.setBackgroundResource(R.drawable.btn_normal);
+
+        notClick1.clearFocus();
+        notClick2.clearFocus();
+        notClick3.clearFocus();
+        notClick4.clearFocus();
+        notClick5.clearFocus();
     }
 
     @Override
@@ -293,54 +327,35 @@ public class DetailSensor extends AppCompatActivity {
         xAxis.setLabelRotationAngle(0f);//45
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
-        xAxis.setDrawLabels(false);
+        xAxis.setDrawLabels(true);
         xAxis.setLabelCount(3, true);
-//        xAxis.setValueFormatter(new ValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value) {
-//                Date date = new Date((long) value);
-//                SimpleDateFormat fmt;
-//                fmt = new SimpleDateFormat("HH:mm zz");
-//                fmt.setTimeZone(TimeZone.getDefault());
-//                String s = fmt.format(date);
-//                return s;
-//            }
-//        });
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                Date date = new Date((long) value);
+                SimpleDateFormat fmt;
+                fmt = new SimpleDateFormat("HH:mm zz");
+                fmt.setTimeZone(TimeZone.getDefault());
+                String s = fmt.format(date);
+                return s;
+            }
+        });
 
         YAxis yAxisL = chart.getAxis(YAxis.AxisDependency.LEFT);
         yAxisL.setDrawGridLines(false);
         yAxisL.setDrawLabels(false);
 
-//        switch (type) {
-//            case "Tegangan":
-//                yAxisL.setAxisMinimum(110);
-//                yAxisL.setAxisMaximum(330);
-//                break;
-//            case "Arus":
-//                yAxisL.setAxisMinimum(0);
-//                yAxisL.setAxisMaximum(20);
-//                break;
-//            case "Daya":
-//                yAxisL.setAxisMinimum(0);
-//                yAxisL.setAxisMaximum(1000);
-//                break;
-//            case "CosPhi":
-//                yAxisL.setAxisMinimum(0);
-//                yAxisL.setAxisMaximum(5);
-//                break;
-//            case "Frekuensi":
-//                yAxisL.setAxisMinimum(40);
-//                yAxisL.setAxisMaximum(70);
-//                break;
-//            case "Energy":
-//                yAxisL.setAxisMinimum(0);
-//                yAxisL.setAxisMaximum(100);
-//                break;
-//        }
+        float yMin = lineData.getYMin() - 10;
+        float yMax = lineData.getYMax() + 10;
+
+        yAxisL.setAxisMinimum(yMin);
+        yAxisL.setAxisMaximum(yMax);
+
 
         MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
         mv.setChartView(chart);
         chart.setMarker(mv);
+
         chart.getLegend().setEnabled(false);
         chart.getDescription().setEnabled(false);
         chart.getAxisRight().setEnabled(false);
@@ -350,8 +365,8 @@ public class DetailSensor extends AppCompatActivity {
         chart.clear();
         chart.setData(lineData);
         chart.invalidate();
-//        chart.moveViewTo(lineData.getEntryCount(),50L, YAxis.AxisDependency.LEFT);
-        chart.moveViewToAnimated(lineData.getXMax(), 50L, YAxis.AxisDependency.LEFT, 1000);
+        chart.moveViewTo(lineData.getEntryCount(), 50L, YAxis.AxisDependency.LEFT);
+//        chart.moveViewToAnimated(lineData.getXMax(), 50L, YAxis.AxisDependency.LEFT, 1000);
     }
 
     public void Back(View view) {
